@@ -1,19 +1,31 @@
-import { bookModel } from "entities/book";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { googleApi } from "shared/api";
-import { RootState } from "store";
+import { Col, Row, Layout } from "antd";
+import { BookCard, bookModel } from "entities/book";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Header } from "widgets/header";
+import styles from "./styles.module.scss";
+
 const BooksListPage = () => {
   const dispatch = useDispatch();
+  const books = bookModel.selectors.useBooks();
+  const queryConfig = bookModel.selectors.useQueryConfig();
 
   useEffect(() => {
-    googleApi.books.getBooksList({ maxResults: 30 });
-  }, []);
+    dispatch(bookModel.getBooksList(queryConfig));
+  }, [queryConfig, dispatch]);
 
   return (
     <div>
       <Header />
+      <Layout.Content>
+        <Row className={styles.container} justify="center" gutter={[20, 15]}>
+          {books.map((book) => (
+            <Col key={book.id} span={4}>
+              <BookCard bookId={book.id} />
+            </Col>
+          ))}
+        </Row>
+      </Layout.Content>
     </div>
   );
 };

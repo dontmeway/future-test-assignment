@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  background-color: wheat;
+  border: 0.3px solid black;
+
+  img {
+    width: 150px;
+    height: 220px;
+    object-fit: cover;
+  }
+}

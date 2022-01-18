@@ -3,7 +3,8 @@ import { bookModel } from "entities/book";
 
 export const store = configureStore({
     reducer: {
-        booksReducer: bookModel.reducer
+        booksReducer: bookModel.reducer,
+        
     }
 })
 
